@@ -1,15 +1,23 @@
 #!/usr/bin/python3
+'''
+Locked box challenge
+'''
 
 def canUnlockAll(boxes):
-    """
-        Parameter: boxes
-        Return: True or False
-    """
-    if not boxes or type(boxes) is not list:
-        return False
-    unlocked = [0]
-    for x in unlocked:
-        for y in boxes[x]:
-            if y not in unlocked and y < len(boxes):
-                unlocked.append(y)
-    return len(unlocked) == len(boxes)
+    '''
+    Check boxes for key to unlock the next box
+    '''
+    if len(boxes[0]) == 0:
+        return (False)
+    keys = {0}
+    size = len(boxes)
+    visited = {0}
+    keys = keys.union(boxes[0])
+    while size > 0:
+        for i in keys:
+            if i in visited:
+                continue
+            keys = keys.union(boxes[i])
+            visited.add(i)
+        size -= 1
+    return len(keys) == len(boxes)
