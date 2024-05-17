@@ -36,7 +36,4 @@ except KeyboardInterrupt:
     raise
 else:
     print_data(total_file_size, status_code_data)
-
-if __name__ == '__main__':
-    print_data()
     
