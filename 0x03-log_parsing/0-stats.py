@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """log parsing"""
 import sys
 
@@ -34,4 +34,6 @@ except KeyboardInterrupt:
     raise
 else:
     print_data(total_file_size, status_code_data)
-    
+
+if __name__ == '__main__':
+    parse_logs()
