@@ -5,10 +5,9 @@ This project is related to Python log parsing.
 import sys
 import os
 
+
 def print_data(total_file_size, status_code_data):
-    """
-	This method prints total size and status code count
-	"""
+    """ This method prints total size and status code count """
     print('File size: {}'.format(total_file_size))
     for code, count in sorted(status_code_data.items()):
         if count != 0:
