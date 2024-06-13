@@ -1,35 +1,39 @@
 #!/usr/bin/python3
-"""log parsing"""
+"""
+Log parsing
+"""
+
 import sys
 
+if __name__ == '__main__':
 
-def print_data(total_file_size, status_code_data):
-    """prints total size and status code count"""
-    print('File size: {}'.format(total_file_size))
-    for k, v in sorted(status_code_data.items()):
-        if v != 0:
-            print('{}: {}'.format(k, v))
+    filesize, count = 0, 0
+    codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    stats = {k: 0 for k in codes}
 
+    def print_stats(stats: dict, file_size: int) -> None:
+        print("File size: {:d}".format(filesize))
+        for k, v in sorted(stats.items()):
+            if v:
+                print("{}: {}".format(k, v))
 
-status_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
-status_code_data = {code: 0 for code in status_codes}
-total_file_size = 0
-try:
-    count = 0
-    for line in sys.stdin:
-        splitstr = line.split()
-        try:
-            total_file_size += int(splitstr[-1])
-            code = splitstr[-2]
-            if code in status_code_data:
-                count += 1
-                status_code_data[code] += 1
-                if count % 10 == 0:
-                    print_data(total_file_size, status_code_data)
-        except:
-            pass
-except KeyboardInterrupt:
-    print_data(total_file_size, status_code_data)
-    raise
-else:
-    print_data(total_file_size, status_code_data)
+    try:
+        for line in sys.stdin:
+            count += 1
+            data = line.split()
+            try:
+                status_code = data[-2]
+                if status_code in stats:
+                    stats[status_code] += 1
+            except BaseException:
+                pass
+            try:
+                filesize += int(data[-1])
+            except BaseException:
+                pass
+            if count % 10 == 0:
+                print_stats(stats, filesize)
+        print_stats(stats, filesize)
+    except KeyboardInterrupt:
+        print_stats(stats, filesize)
+        raise
