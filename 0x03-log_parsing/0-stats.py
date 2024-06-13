@@ -5,7 +5,6 @@ Log stats module
 import sys
 from operator import itemgetter
 
-
 def log_parser(log):
     """
     Parses log into different fields
@@ -15,13 +14,11 @@ def log_parser(log):
     status_code = log_fields[-2]
     return status_code, file_size
 
-
 def validate_format(log):
     """
     Validates log format
     """
     return False if len(log.split()) < 7 else True
-
 
 def validate_status_code(status_code):
     """
@@ -30,7 +27,6 @@ def validate_status_code(status_code):
     valid_status_codes = ["200", "301", "400", "401",
                           "403", "404", "405", "500"]
     return True if status_code in valid_status_codes else False
-
 
 def print_log(file_size, status_codes) -> None:
     """
@@ -42,7 +38,6 @@ def print_log(file_size, status_codes) -> None:
         key = code_count[0]
         value = code_count[1]
         print("{}: {}".format(key, value))
-
 
 def main():
     """
@@ -68,7 +63,6 @@ def main():
     except KeyboardInterrupt:
         print_log(total_size, status_codes_count)
     print_log(total_size, status_codes_count)
-
 
 if __name__ == '__main__':
     main()
