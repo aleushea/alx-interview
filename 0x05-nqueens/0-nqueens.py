@@ -88,6 +88,28 @@ def get_solutions():
     pos = [(x // n, x % n) for x in range(n ** 2)]
     build_solution(0, [])
 
+def backtrack(board, row, n, solutions):
+    if row == n:
+        solutions.append(board[:])
+        return
+
+    for col in range(n):
+        board[row] = col
+        if is_safe(board, row, col):
+            backtrack(board, row + 1, n, solutions)
+
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i] == col or abs(i - row) == abs(board[i] - col):
+            return False
+    return True
+
+def solveNQueens(n):
+    board = [-1] * n
+    solutions = []
+    backtrack(board, 0, n, solutions)
+    return len(solutions)
+
 
 n = get_input()
 get_solutions()
