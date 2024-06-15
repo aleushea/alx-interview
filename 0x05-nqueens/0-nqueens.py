@@ -36,6 +36,7 @@ def is_attacking(position_a, position_b):
 
 FOUND_SOLUTIONS = set()
 
+
 def group_exists(group):
     """Check if a group exists in the list of solutions."""
     if tuple(group) in FOUND_SOLUTIONS:
@@ -57,7 +58,6 @@ def build_solution(row, group):
             SOLUTIONS.append(group.copy())
         return
 
-
     for col in range(N):
         position = (row, col)
         if all(not is_attacking(position, g_position) for g_position in group):
@@ -77,4 +77,3 @@ N = get_input()
 get_solutions()
 for solution in SOLUTIONS:
     print(solution)
-
