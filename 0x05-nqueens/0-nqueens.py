@@ -46,32 +46,29 @@ def is_attacking(position_a, position_b):
             abs(position_a[0] - position_b[0]) == abs(position_a[1] - position_b[1]))
 
 
+FOUND_SOLUTIONS = set()
+
 def group_exists(group):
-    """Check if a group exists in the list of solutions.
-
-    Args:
-        group (list of integers): A group of possible positions.
-
-    Returns:
-        bool: True if it exists, otherwise False.
-    """
+    """Check if a group exists in the list of solutions."""
+    if tuple(group) in FOUND_SOLUTIONS:
+        return True
     for solution in SOLUTIONS:
-        if all(position in solution for position in group):
+        if all(pos in solution for pos in group):
+            FOUND_SOLUTIONS.add(tuple(group))
             return True
     return False
 
 
 def build_solution(row, group):
-    """Build a solution for the n queens problem.
+    """Build a solution for the n queens problem."""
+    if len(SOLUTIONS) >= 10:
+        return
 
-    Args:
-        row (int): The current row in the chessboard.
-        group (list of lists of integers): The group of valid positions.
-    """
     if row == N:
         if not group_exists(group):
             SOLUTIONS.append(group.copy())
         return
+
 
     for col in range(N):
         position = (row, col)
@@ -92,4 +89,3 @@ N = get_input()
 get_solutions()
 for solution in SOLUTIONS:
     print(solution)
-
