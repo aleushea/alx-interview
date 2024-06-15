@@ -11,11 +11,7 @@ POSSIBLE_POSITIONS = None
 
 
 def get_input():
-    """Retrieve and validate the program's argument.
-
-    Returns:
-        int: The size of the chessboard.
-    """
+    """Retrieve and validate the program's argument."""
     global N
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
@@ -32,15 +28,7 @@ def get_input():
 
 
 def is_attacking(position_a, position_b):
-    """Check if the positions of two queens are in an attacking mode.
-
-    Args:
-        position_a (list or tuple): The first queen's position.
-        position_b (list or tuple): The second queen's position.
-
-    Returns:
-        bool: True if the queens are in an attacking position, else False.
-    """
+    """Check if the positions of two queens are in an attacking mode."""
     return (position_a[0] == position_b[0] or
             position_a[1] == position_b[1] or
             abs(position_a[0] - position_b[0]) == abs(position_a[1] - position_b[1]))
