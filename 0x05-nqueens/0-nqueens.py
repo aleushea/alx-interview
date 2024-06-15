@@ -110,8 +110,13 @@ def solveNQueens(n):
     backtrack(board, 0, n, solutions)
     return len(solutions)
 
+print(solveNQueens(4))  # Output: 2
+print(solveNQueens(5))  # Output: 10
+print(solveNQueens(8))  # Output: 92
+print(solveNQueens(10)) # Output: 724
 
 n = get_input()
 get_solutions()
 for solution in solutions:
     print(solution)
+    
