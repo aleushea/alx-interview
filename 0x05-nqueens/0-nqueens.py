@@ -77,3 +77,4 @@ N = get_input()
 get_solutions()
 for solution in SOLUTIONS:
     print(solution)
+
