@@ -1,94 +1,68 @@
 #!/usr/bin/python3
-"""N queens solution finder module."""
+"""
+Solution to the nqueens problem
+"""
 import sys
 
 
-solutions = []
-"""The list of possible solutions to the N queens problem."""
-n = 0
-"""The size of the chessboard."""
-pos = None
-"""The list of possible positions on the chessboard."""
-
-
-def get_input():
-    """Retrieves and validates this program's argument.
-
-    Returns:
-        int: The size of the chessboard.
+def backtrack(r, n, cols, pos, neg, board):
     """
-    global n
-    if len(sys.argv) != 2:
+    backtrack function to find solution
+    """
+    if r == n:
+        res = []
+        for l in range(len(board)):
+            for k in range(len(board[l])):
+                if board[l][k] == 1:
+                    res.append([l, k])
+        print(res)
+        return
+
+    for c in range(n):
+        if c in cols or (r + c) in pos or (r - c) in neg:
+            continue
+
+        cols.add(c)
+        pos.add(r + c)
+        neg.add(r - c)
+        board[r][c] = 1
+
+        backtrack(r+1, n, cols, pos, neg, board)
+
+        cols.remove(c)
+        pos.remove(r + c)
+        neg.remove(r - c)
+        board[r][c] = 0
+
+
+def nqueens(n):
+    """
+    Solution to nqueens problem
+    Args:
+        n (int): number of queens. Must be >= 4
+    Return:
+        List of lists representing coordinates of each
+        queen for all possible solutions
+    """
+    cols = set()
+    pos_diag = set()
+    neg_diag = set()
+    board = [[0] * n for i in range(n)]
+
+    backtrack(0, n, cols, pos_diag, neg_diag, board)
+
+
+if __name__ == "__main__":
+    n = sys.argv
+    if len(n) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
     try:
-        n = int(sys.argv[1])
+        nn = int(n[1])
+        if nn < 4:
+            print("N must be at least 4")
+            sys.exit(1)
+        nqueens(nn)
     except ValueError:
         print("N must be a number")
         sys.exit(1)
-    if n < 4:
-        print("N must be at least 4")
-        sys.exit(1)
-    return n
-
-
-def is_attacking(pos0, pos1):
-    """Checks if the positions of two queens are in an attacking mode.
-
-    Args:
-        pos0 (list or tuple): The first queen's position.
-        pos1 (list or tuple): The second queen's position.
-
-    Returns:
-        bool: True if the queens are in an attacking position, else False.
-    """
-    return (pos0[0] == pos1[0] or pos0[1] == pos1[1] or
-            abs(pos0[0] - pos1[0]) == abs(pos0[1] - pos1[1]))
-
-
-def group_exists(group):
-    """Checks if a group exists in the list of solutions.
-
-    Args:
-        group (list of integers): A group of possible positions.
-
-    Returns:
-        bool: True if it exists, otherwise False.
-    """
-    for solution in solutions:
-        if all(pos in solution for pos in group):
-            return True
-    return False
-
-
-def build_solution(row, group):
-    """Builds a solution for the n queens problem.
-
-    Args:
-        row (int): The current row in the chessboard.
-        group (list of lists of integers): The group of valid positions.
-    """
-    if row == n:
-        if not group_exists(group):
-            solutions.append(group.copy())
-        return
-
-    for col in range(n):
-        pos = (row, col)
-        if all(not is_attacking(pos, g_pos) for g_pos in group):
-            group.append(pos)
-            build_solution(row + 1, group)
-            group.pop()
-
-
-def get_solutions():
-    """Gets the solutions for the given chessboard size."""
-    global pos, n
-    pos = [(x // n, x % n) for x in range(n ** 2)]
-    build_solution(0, [])
-
-
-n = get_input()
-get_solutions()
-for solution in solutions:
-    print(solution)
