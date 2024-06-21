@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Change making module.
+"""
+Main file for testing the change making module.
 """
 
 
