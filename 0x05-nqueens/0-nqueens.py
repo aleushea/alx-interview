@@ -28,8 +28,8 @@ def get_input():
         sys.exit(1)
     try:
         n = int(sys.argv[1])
-    except Exception:
-        print("N must be a number")
+    except ValueError:
+        print("N must be an integer")
         sys.exit(1)
     if n < 4:
         print("N must be at least 4")
