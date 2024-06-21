@@ -99,11 +99,10 @@ def get_solutions():
     a = 0
     group = []
     build_solution(a, group)
-    
+
 
 if __name__ == "__main__":
     n = get_input()
     get_solutions()
     for solution in solutions:
         print(solution)
-
