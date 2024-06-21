@@ -10,9 +10,6 @@ solutions = []
 n = 0
 """The size of the chessboard.
 """
-pos = None
-"""The list of possible positions on the chessboard.
-"""
 
 
 def get_input():
@@ -63,12 +60,7 @@ def group_exists(group):
     """
     global solutions
     for stn in solutions:
-        i = 0
-        for stn_pos in stn:
-            for grp_pos in group:
-                if stn_pos[0] == grp_pos[0] and stn_pos[1] == grp_pos[1]:
-                    i += 1
-        if i == n:
+        if all(stn_pos in group for stn_pos in stn):
             return True
     return False
 
@@ -94,14 +86,14 @@ def build_solution(row, group):
             group.append(pos[a].copy())
             if not any(used_positions):
                 build_solution(row + 1, group)
-            group.pop(len(group) - 1)
+            group.pop()
 
 
 def get_solutions():
     """Gets the solutions for the given chessboard size.
     """
-    global pos, n
-    pos = list(map(lambda x: [x // n, x % n], range(n ** 2)))
+    global n
+    pos = [[x // n, x % n] for x in range(n ** 2)]
     a = 0
     group = []
     build_solution(a, group)
