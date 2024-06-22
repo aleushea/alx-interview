@@ -1,0 +1,8 @@
+3
+Ç/¸ež  ã               @   s   d Z dd„ ZdS )zMmethod that determines if a given data set represents
+a valid UTF-8 encoding.c             C   s~   d}xp| D ]h}|dkrZ|d? dkr(d}qr|d? dkr:d}qr|d? d	krLd}qr|d
+? rrdS q
+|d? dkrjdS |d8 }q
+W |dkS )zCeturn: True if data is a valid UTF-8 encoding
+    else return Falseé    é   é   é   é   é   é   é   é   é   F© )ÚdataZ	num_bytesZbyter   r   ú;/root/alx-interview/0x04-utf8_validation/0-validate_utf8.pyÚ	validUTF8   s    
+r   N)Ú__doc__r   r   r   r   r   Ú<module>   s   
