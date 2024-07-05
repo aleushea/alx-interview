@@ -62,3 +62,4 @@ Repo:
     •	GitHub repository: alx-interview
     •	Directory: 0x0A-primegame
     •	File: 0-prime_game.py
+git add .;git commit -m "0x0A. Prime Game";git push
